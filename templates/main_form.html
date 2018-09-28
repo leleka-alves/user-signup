@@ -4,6 +4,18 @@
     <head>
         <title> SignUp </title>
             <style>
+                h2 {
+                    color: white;
+                }
+
+                .error {
+                    color: yellow;
+                    font-size: 11px;
+                    font-family: 'Arial';
+                    font-style: italic; 
+                    
+                }
+
                 form {
                     background-color: black;
                     border: 1px solid pink;
@@ -11,7 +23,7 @@
                     margin: 0;
                     width: 175px;
                     font: 14px 'Tahoma';
-                    color: white;
+                    color: pink;
                     border-radius: 8px;
                 }
 
@@ -29,27 +41,27 @@
                     font: 'Tahoma';
                 }
 
-                p {
-                    color: pink;
-                    font-size: 14px;
-                    font: 'Tahoma';
-                    
-                }
-
             </style>
     </head>
     <body>
     
-      <form action="/sign" method="post">
+      <form method="POST">
       <h2>Sign Up </h2>
-                <p> Username:           <input type="text" name="username"  id="username"   value='{{username}}'>   </p>
-                <p> Password:           <input type="text" name="password"  id="password"   value='{{password}}'>   </p>
-                <p> Verify Password:    <input type="text" name="verifpass" id="verifpass"  value='{{verifpass}}'>  </p> 
-                <p> Email (optional):   <input type="text" name="email"     id="email"      value='{{email}}'>      </p>  
+                <p> Username:           <input type="text" name="username"   value='{{username}}'>   </p>
+                <p class="error">{{username_error}}</h1>
+                
+                <p> Password:           <input type="text" name="password"   value='{{password}}'>   </p>
+                <p class="error">{{password_error}}</h1>
+                
+                <p> Verify Password:    <input type="text" name="verifpass"  value='{{verifpass}}'>  </p> 
+                <p class="error">{{verifpass_error}}</h1>
+                
+                <p> Email (optional):   <input type="text" name="email"      value='{{email}}'>      </p>  
+                <p class="error">{{email_error}}</h1>
+                <br>
                 <br>
                 <input type="submit" class="button" value="Submit">
-                &nbsp &nbsp
-                <input type="reset" class="button" value="Reset">
+                
 
         </form>
     </body>

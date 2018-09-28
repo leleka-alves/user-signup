@@ -10,64 +10,73 @@ app = Flask(__name__)
 app.config['DEBUG'] = True
 
 @app.route("/")
-def index():
-    error = request.args.get("error")
-    if error:
-        error_esc = cgi.escape(error, quote=True)
-        error_element = '<p class="error">' + error_esc + '</p>'
-    else:
-        error_element = ''
-
-    # combine the pieces of html with jinja2
-    main_content = error_element
-    
+def signup_form():
     template = jinja_env.get_template('main_form.html')
-    return template.render()
+    return template.render(username='', username_error='', 
+    password='', password_error='',
+    verifpass='', verifpass_error='', 
+    email='', email_error='')
 
-
-
-@app.route("/sign", methods=['POST'])
+@app.route("/", methods=['POST'])
 def signup():
     usernames = request.form['username']
     passwords = request.form['password']
     verifys = request.form['verifpass']
     emails = request.form['email']
 
-
+    username_error = '' 
+    password_error = ''
+    verifpass_error = '' 
+    email_error = ''
+    
     # TODO 1
     # The user leaves any of the following fields empty: username, password, verify password
-    if usernames == "" or passwords == "" or verifys == "":
-        error = "Please do not leave 'username', 'password' or 'verify password' empty"
-        return redirect("/?error=" + error)
-
-    # TODO 2
-    # The user's username or password is not valid -- for example, 
-    # it contains a space character 
-    # or it consists of less than 3 characters 
-    # or more than 20 characters 
-    # (e.g., a username or password of "me" would be invalid).
-    if " " in usernames or " " in passwords:
-        error = "your username and/or password cannot contain space(s)"
-        return redirect("/sign?error=" + error)
-
-    if len(usernames) < 3 or len(usernames) > 20 or len(passwords) < 3 or len(passwords) > 20:    
-        error = "your username and/or password cannot contain less than 3 or more than 20 characters"
-        return redirect("/?error=" + error)
-
-    # TODO 3
-    # The user's password and password-confirmation do not match.
-    if verifys !=  passwords:
-        error = "Your verify password should be equal password"
-        return redirect("/sign?error=" + error)
+    if usernames == "":
+        username_error = "Please do not leave 'username' empty"
     
-    # TODO 4
-    #  The criteria for a valid email address in this assignment are that 
-    # it has a single @, 
-    # a single ., 
-    # contains no spaces, 
-    # and is between 3 and 20 characters long.
-    if "@" not in emails or " " in emails or "." not in emails: 
-        error = "Please enter a valid e-mail address"
-        return redirect("/sign?error=" + error)
+    if len(usernames) < 3 or len(usernames) > 20:
+        username_error = "'username' cannot contain less than 3 or more than 20 characters"  
+                    
+    if " " in usernames:
+        username_error = "'username' cannot contain space(s)"
+
+    if passwords == "":
+        password_error = "Please do not leave 'password' empty"
+
+    if " " in passwords:
+        password_error = "'password' cannot contain space(s)"
+    
+    if verifys == "":
+        verifpass_error = "Please do not leave 'verify password' empty"
+
+    if verifys !=  passwords:
+        verifpass_error = "Your 'verify password' should be equal 'password'"
+    
+    if emails == "":
+        email_error = "Please do not leave 'email' empty"
+
+    if "@" not in emails or "." not in emails: 
+        email_error = "Please enter a valid e-mail address"
+
+    if not username_error and not password_error and not verifpass_error and not email_error:
+        template = jinja_env.get_template('sucess_form.html')
+        return template.render(usernames=usernames, 
+                                passwords=passwords, 
+                                verifys=verifys,
+                                emails=emails)
+    
+    else:
+        template = jinja_env.get_template('main_form.html')
+        return template.render(username_error=username_error, 
+                                password_error=password_error,
+                                verifpass_error=verifpass_error, 
+                                email_error=email_error, 
+                                usernames=usernames, 
+                                passwords=passwords, 
+                                verifys=verifys,
+                                emails=emails)
+
+
+
 
 app.run()
