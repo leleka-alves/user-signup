@@ -29,28 +29,26 @@ def signup():
     verifpass_error = '' 
     email_error = ''
     
-    # TODO 1
-    # The user leaves any of the following fields empty: username, password, verify password
     if usernames == "":
         username_error = "Please do not leave 'username' empty"
     
     if len(usernames) < 3 or len(usernames) > 20:
-        username_error = "'username' cannot contain less than 3 or more than 20 characters"  
+        username_error = "'Username' cannot contain less than 3 or more than 20 characters"  
                     
     if " " in usernames:
-        username_error = "'username' cannot contain space(s)"
+        username_error = "'Username' cannot contain space(s)"
 
     if passwords == "":
         password_error = "Please do not leave 'password' empty"
 
     if " " in passwords:
-        password_error = "'password' cannot contain space(s)"
+        password_error = "'Password' cannot contain space(s)"
     
     if verifys == "":
         verifpass_error = "Please do not leave 'verify password' empty"
 
     if verifys !=  passwords:
-        verifpass_error = "Your 'verify password' should be equal 'password'"
+        verifpass_error = "'Verify password' should be equal 'password'"
     
     if emails == "":
         email_error = "Please do not leave 'email' empty"
@@ -75,7 +73,6 @@ def signup():
                                 passwords=passwords, 
                                 verifys=verifys,
                                 emails=emails)
-
 
 
 
