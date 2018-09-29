@@ -1,19 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="https://fonts.googleapis.com/css?family=Chicle|Cookie|K2D" rel="stylesheet">  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Thank you!</title>
+
+
+    <style>
+            
+            body {
+                font-family: 'K2D', sans-serif;
+            }
+
+
+            h1 {
+                color: crimson;
+                font-family: 'Chicle', cursive;
+                font-weight: 100;
+            }
+
+            p {
+                color: cornflowerblue;
+                font-family: 'Cookie', cursive;
+                font-size: 20px;
+                font-style: italic; 
+            }
+          
+        
+
+        </style>
 </head>
 <body>
     <h1> Thanx for signing up, {{usernames}}!!!</h1>
     
-    Please double check your information: <br><br>
-    <b>Username:</b> {{usernames}}<br>
-    <b>Password:</b> {{passwords}}<br>
-    <b>Email: </b> {{emails}}
-
+    <p>Please double check your information: </p>
+    <ul>
+    <li><b>Username:</b> {{usernames}}</li>
+    <li><b>Password:</b> {{passwords}}</li>
+    <li><b>Email: </b> {{emails}}</li>
+    </ul>
 
 </body>
 </html>
