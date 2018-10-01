@@ -43,18 +43,17 @@ def signup():
 
     if " " in passwords:
         password_error = "'Password' cannot contain space(s)"
-    
-    if verifys == "":
-        verifpass_error = "Please do not leave 'verify password' empty"
 
     if verifys !=  passwords:
         verifpass_error = "'Verify password' should be equal 'password'"
+
     
     if emails == "":
-        email_error = "Please do not leave 'email' empty"
-
-    if "@" not in emails or "." not in emails: 
-        email_error = "Please enter a valid e-mail address"
+        email_error = ""
+        
+    else:
+        if "@" not in emails or "." not in emails: 
+            email_error = "Please enter a valid e-mail address"
 
     if not username_error and not password_error and not verifpass_error and not email_error:
         template = jinja_env.get_template('sucess_form.html')
