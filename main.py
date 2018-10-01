@@ -12,10 +12,7 @@ app.config['DEBUG'] = True
 @app.route("/")
 def signup_form():
     template = jinja_env.get_template('main_form.html')
-    return template.render(username='', username_error='', 
-    password='', password_error='',
-    verifpass='', verifpass_error='', 
-    email='', email_error='')
+    return template.render()
 
 @app.route("/", methods=['POST'])
 def signup():
@@ -31,7 +28,7 @@ def signup():
     
     if usernames == "":
         username_error = "Please do not leave 'username' empty"
-    
+        
     if len(usernames) < 3 or len(usernames) > 20:
         username_error = "'Username' cannot contain less than 3 or more than 20 characters"  
                     
@@ -47,7 +44,6 @@ def signup():
     if verifys !=  passwords:
         verifpass_error = "'Verify password' should be equal 'password'"
 
-    
     if emails == "":
         email_error = ""
         
@@ -64,15 +60,14 @@ def signup():
     
     else:
         template = jinja_env.get_template('main_form.html')
-        return template.render(username_error=username_error, 
-                                password_error=password_error,
-                                verifpass_error=verifpass_error, 
-                                email_error=email_error, 
-                                usernames=usernames, 
+        return template.render(usernames=usernames, 
                                 passwords=passwords, 
                                 verifys=verifys,
-                                emails=emails)
-
+                                emails=emails, 
+                                username_error=username_error, 
+                                password_error=password_error,
+                                verifpass_error=verifpass_error, 
+                                email_error=email_error)
 
 
 app.run()
